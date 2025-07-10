@@ -1,10 +1,16 @@
-import { reset, seed } from 'drizzle-seed'
+import { seed } from 'drizzle-seed'
 import { db, sql } from './connection.ts'
 import { schema } from './schema/index.ts'
 
-await reset(db, schema)
+// Reset only the tables we can seed (exclude audio_chunks due to vector column)
+await db.delete(schema.questions)
+await db.delete(schema.rooms)
 
-await seed(db, schema).refine((f) => {
+// Seed only the supported tables
+await seed(db, {
+  rooms: schema.rooms,
+  questions: schema.questions,
+}).refine((f) => {
   return {
     rooms: {
       count: 5,
