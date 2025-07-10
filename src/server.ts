@@ -1,6 +1,6 @@
 import { fastifyCors } from '@fastify/cors'
-import { fastify } from 'fastify'
 import { fastifyMultipart } from '@fastify/multipart'
+import { fastify } from 'fastify'
 import {
   serializerCompiler,
   validatorCompiler,
